@@ -1,67 +1,62 @@
 
-
 import random
 
-input("Welcome to Rock, Paper, Scissors! Press Enter to start.")
-print()
-user_wins = 0
-computer_wins = 0
+print("Welcome.!! : Rock-Paper-Scissors CLI game!!")
 
-choices = ["rock", "paper", "scissors"]
+start_game = True
 
-while True:
-    random_index = random.randint(0, 2)
-    cpu_choice = choices[random_index]
+while start_game:
+    # Take player input
 
-    user_choice = input("Rock, Paper, or Scissors? ").lower()
-    while user_choice not in choices:
-        user_choice = input(
-            "That is not a valid choice. Please try again: ").lower()
+    player_input = str(input(
+        "Choose your character: \nEnter 'R' for Rock \nEnter 'P' for Paper \nEnter 'S' for Scissors\nEnter 'Z' to close game.\n"))
+    # checks if it is an alphabet
+    if not player_input.isalpha():
+        print("This is not an alphabet")
+        continue
 
-    print()
-    print("Your choice:", user_choice)
-    print("Computer's choice:", cpu_choice)
-    print()
+    # convert player input to uppercase for uniformity
+    player_choice = player_input.upper()
 
-    if user_choice == 'rock':
-        if cpu_choice == 'rock':
-            print("It's a tie!")
-        elif cpu_choice == 'scissors':
-            print("You win!")
-            user_wins += 1
-        elif cpu_choice == 'paper':
-            print("You lose!")
-            computer_wins += 1
-    elif user_choice == 'paper':
-        if cpu_choice == 'paper':
-            print("It's a tie!")
-        elif cpu_choice == 'rock':
-            print("You win!")
-            user_wins += 1
-        elif cpu_choice == 'scissors':
-            print("You lose!")
-            computer_wins += 1
-    elif user_choice == 'scissors':
-        if cpu_choice == 'scissors':
-            print("It's a tie!")
-        elif cpu_choice == 'paper':
-            print("You win!")
-            user_wins += 1
-        elif cpu_choice == 'rock':
-            print("You lose!")
-            computer_wins += 1
-
-    print()
-    print("You have "+str(user_wins)+" wins")
-    print("The computer has "+str(computer_wins)+" wins")
-    print()
-
-    repeat = input("Play again? (Y/N) ").lower()
-    while repeat not in ['y', 'n']:
-        repeat = input(
-            "That is not a valid choice. Please try again: ").lower()
-
-    if repeat == 'n':
+    if player_choice == "Z":
+        print("Closed...")
         break
 
-    print("\n----------------------------\n")
+    # list for computer options
+    computer_options = ["R", "P", "S"]
+
+    # use inbuilt choice funtion from inbuilt python random module.
+    computer_choice = random.choice(computer_options)
+
+    print("You chose ", player_choice, " computer chose ", computer_choice)
+
+    if player_choice == computer_choice:
+        print("Both player chose ", player_choice, "It's a tie!")
+    elif player_choice == "R":
+        if computer_choice == "S":
+            print("Rock smashes scissors! You win!")
+        else:
+            print("Paper covers rock! You lose.")
+    elif player_choice == "P":
+        if computer_choice == "R":
+            print("Paper covers rock! You win!")
+        else:
+            print("Scissors cuts paper! You lose.")
+
+    elif player_choice == "S":
+        if computer_choice == "P":
+            print("Scissors cuts paper! You win!")
+        else:
+            print("Rock smashes scissors! You lose.")
+    else:
+        print("Oops, ", player_choice,
+              " is an Invalid input....Let's try that again")
+
+    restart = input(
+        "Will you like to play again?\nPress 'y' for yes or 'n' for no.")
+    # Restart program
+    if restart == "y":
+        continue
+    else:
+        print("Thank you for playing.")
+        break
